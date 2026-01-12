@@ -23,6 +23,7 @@ import { STROKE_SIZES } from '../../shared/default-shape-constants'
 import { DrawShapeUtil } from '../DrawShapeUtil'
 
 type DrawableShape = TLDrawShape | TLHighlightShape
+const disableSnapping = true
 
 export class Drawing extends StateNode {
 	static override id = 'drawing'
@@ -460,14 +461,14 @@ export class Drawing extends StateNode {
 				if (this.didJustShiftClickToExtendPreviousShapeLine) {
 					if (this.editor.inputs.getIsDragging()) {
 						// If we've just shift clicked to extend a line, only snap once we've started dragging
-						shouldSnapToAngle = !ctrlKey
+						shouldSnapToAngle = ctrlKey
 						this.didJustShiftClickToExtendPreviousShapeLine = false
 					} else {
 						// noop
 					}
 				} else {
 					// If we're not shift clicking to extend a line, but we're holding shift, then we should snap
-					shouldSnapToAngle = !ctrlKey // don't snap angle while snapping line
+					shouldSnapToAngle = ctrlKey // don't snap angle while snapping line
 				}
 
 				let newPoint = this.editor.getPointInShapeSpace(shape, currentPagePoint).toFixed().toJson()
@@ -476,7 +477,7 @@ export class Drawing extends StateNode {
 
 				const shouldSnap = this.editor.user.getIsSnapMode() ? !ctrlKey : ctrlKey
 
-				if (shouldSnap) {
+				if (shouldSnap && !disableSnapping) {
 					if (newSegments.length > 2) {
 						let nearestPoint: VecModel | undefined = undefined
 						let minDistance = 8 / this.editor.getZoomLevel()

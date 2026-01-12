@@ -1,5 +1,9 @@
 # tldraw
 
+## Requirements
+
+* `node >= 22`
+
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/tldraw/tldraw)
 
 Welcome to the public monorepo for [tldraw](https://github.com/tldraw/tldraw). tldraw is a library for creating infinite canvas experiences in React. It's the software behind the digital whiteboard [tldraw.com](https://tldraw.com).

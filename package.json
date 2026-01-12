@@ -41,14 +41,14 @@
 		"postinstall": "husky install && yarn refresh-assets",
 		"refresh-assets": "lazy refresh-assets",
 		"refresh-context": "tsx internal/scripts/refresh-context.ts",
-		"dev": "LAZYREPO_PRETTY_OUTPUT=0 lazy run dev --filter='apps/examples' --filter='packages/tldraw' --filter='apps/bemo-worker' --filter='apps/dotcom/image-resize-worker'",
+		"dev": "LAZYREPO_PRETTY_OUTPUT=0 lazy run dev --filter='apps/examples' --filter='packages/tldraw'",
 		"dev-vscode": "code ./apps/vscode/extension && lazy run dev --filter='apps/vscode/{extension,editor}'",
 		"dev-app": "LAZYREPO_PRETTY_OUTPUT=0 lazy run dev --filter='apps/dotcom/*' --filter='packages/tldraw'",
 		"dev-docs": "LAZYREPO_PRETTY_OUTPUT=0 lazy run dev --filter='apps/docs'",
 		"dev-huppy": "LAZYREPO_PRETTY_OUTPUT=0 lazy run dev --filter 'internal/huppy'",
 		"dev-template": "./internal/scripts/dev-template.sh",
 		"build": "lazy build",
-		"build-app": "lazy run build --filter 'apps/dotcom/client'",
+		"build-app": "lazy run build --filter 'apps/examples'",
 		"build-docs": "lazy run build --filter 'apps/docs'",
 		"build-types": "lazy inherit",
 		"build-api": "lazy build-api",
@@ -98,6 +98,7 @@
 		"@swc/core": "^1.10.11",
 		"@types/aws-lambda": "8.10.148",
 		"@types/glob": "^8.1.0",
+		"@types/lodash.debounce": "^4.0.9",
 		"@types/node": "^22.15.31",
 		"@types/react": "^19.2.7",
 		"@types/react-dom": "^19.2.3",
@@ -144,11 +145,14 @@
 	"dependencies": {
 		"@sentry/cli": "^2.41.1",
 		"@yarnpkg/types": "^4.0.0",
+		"better-sqlite3": "^12.5.0",
 		"cross-env": "^7.0.3",
 		"esbuild": "^0.25.6",
+		"express": "^5.2.1",
 		"mime": "^4.0.6",
 		"purgecss": "^5.0.0",
 		"sst": "^3.10.13",
-		"svgo": "^3.3.2"
+		"svgo": "^3.3.2",
+		"uuid": "^13.0.0"
 	}
 }

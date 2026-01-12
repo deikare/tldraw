@@ -9,11 +9,8 @@ import {
 	setDefaultEditorAssetUrls,
 	setDefaultUiAssetUrls,
 } from 'tldraw'
-import { ExamplePage } from './ExamplePage'
-import { ExampleWrapper } from './ExampleWrapper'
 import { examples } from './examples'
-import Develop from './misc/develop'
-import EndToEnd from './misc/end-to-end'
+import WhiteboardRoute from './WhiteboardRoute'
 
 const ENABLE_STRICT_MODE = false
 
@@ -35,70 +32,10 @@ const router = createBrowserRouter([
 		lazy: async () => ({ element: <div>404</div> }),
 	},
 	{
-		path: '/',
-		lazy: async () => {
-			const Component = await basicExample.loadComponent()
-			return {
-				element: (
-					<ExamplePage example={basicExample}>
-						<ExampleWrapper example={basicExample} component={Component} />
-					</ExamplePage>
-				),
-			}
-		},
+		path: '/:id',
+		element: <WhiteboardRoute />,
 	},
-	{
-		path: 'develop',
-		lazy: async () => ({ element: <Develop /> }),
-	},
-	{
-		path: 'end-to-end',
-		lazy: async () => ({ element: <EndToEnd /> }),
-	},
-	...examples.flatMap((exampleArray) =>
-		exampleArray.value.flatMap((example) => [
-			{
-				path: example.path,
-				lazy: async () => {
-					const Component = await example.loadComponent()
-					return {
-						element: (
-							<NoIndex>
-								<ExamplePage example={example}>
-									<ExampleWrapper example={example} component={Component} />
-								</ExamplePage>
-							</NoIndex>
-						),
-					}
-				},
-			},
-			{
-				path: `${example.path}/full`,
-				lazy: async () => {
-					const Component = await example.loadComponent()
-					return {
-						element: (
-							<NoIndex>
-								<ExampleWrapper example={example} component={Component} />
-							</NoIndex>
-						),
-					}
-				},
-			},
-		])
-	),
 ])
-
-function NoIndex({ children }: { children: React.ReactNode }) {
-	return (
-		<>
-			<Helmet>
-				<meta name="robots" content="noindex, noimageindex, nofollow" />
-			</Helmet>
-			{children}
-		</>
-	)
-}
 
 document.addEventListener('DOMContentLoaded', () => {
 	const rootElement = document.getElementById('root')!

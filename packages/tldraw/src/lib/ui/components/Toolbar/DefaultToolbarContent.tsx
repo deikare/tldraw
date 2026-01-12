@@ -6,39 +6,41 @@ import { TldrawUiMenuToolItem } from '../primitives/menus/TldrawUiMenuToolItem'
 export function DefaultToolbarContent() {
 	return (
 		<>
-			<SelectToolbarItem />
-			<HandToolbarItem />
 			<DrawToolbarItem />
-			<EraserToolbarItem />
-			<ArrowToolbarItem />
 			<TextToolbarItem />
-			<NoteToolbarItem />
-			<AssetToolbarItem />
+			<EraserToolbarItem />
 
-			<RectangleToolbarItem />
-			<EllipseToolbarItem />
-			<TriangleToolbarItem />
-			<DiamondToolbarItem />
-
+			<SelectToolbarItem />
+			{/*<HandToolbarItem />*/}
 			<HexagonToolbarItem />
-			<OvalToolbarItem />
-			<RhombusToolbarItem />
-			<StarToolbarItem />
+			<EllipseToolbarItem />
 
-			<CloudToolbarItem />
-			<HeartToolbarItem />
-			<XBoxToolbarItem />
-			<CheckBoxToolbarItem />
+			{/*<ArrowToolbarItem />*/}
+			{/*<NoteToolbarItem />*/}
+			{/*<AssetToolbarItem />*/}
 
-			<ArrowLeftToolbarItem />
-			<ArrowUpToolbarItem />
-			<ArrowDownToolbarItem />
-			<ArrowRightToolbarItem />
+			{/*<RectangleToolbarItem />*/}
+			<TriangleToolbarItem />
+			{/*<DiamondToolbarItem />*/}
 
-			<LineToolbarItem />
+			{/*<OvalToolbarItem />*/}
+			{/*<RhombusToolbarItem />*/}
+			{/*<StarToolbarItem />*/}
+
+			{/*<CloudToolbarItem />*/}
+			{/*<HeartToolbarItem />*/}
+			{/*<XBoxToolbarItem />*/}
+			{/*<CheckBoxToolbarItem />*/}
+
+			{/*<ArrowLeftToolbarItem />*/}
+			{/*<ArrowUpToolbarItem />*/}
+			{/*<ArrowDownToolbarItem />*/}
+			{/*<ArrowRightToolbarItem />*/}
+
+			{/*<LineToolbarItem />*/}
 			<HighlightToolbarItem />
-			<LaserToolbarItem />
-			<FrameToolbarItem />
+			{/*<LaserToolbarItem />*/}
+			{/*<FrameToolbarItem />*/}
 		</>
 	)
 }

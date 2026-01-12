@@ -34,21 +34,25 @@ import {
 } from './StylePanelDropdownPicker'
 import { StylePanelSubheading } from './StylePanelSubheading'
 
+const USE_OPACITY_SLIDER = false
+const USE_FILL_PICKER = false
+const USE_FONT_PICKER = false
+
 /** @public @react */
 export function DefaultStylePanelContent() {
 	return (
 		<>
 			<StylePanelSection>
 				<StylePanelColorPicker />
-				<StylePanelOpacityPicker />
+				{USE_OPACITY_SLIDER && <StylePanelOpacityPicker />}
 			</StylePanelSection>
 			<StylePanelSection>
-				<StylePanelFillPicker />
+				{USE_FILL_PICKER && <StylePanelFillPicker />}
 				<StylePanelDashPicker />
 				<StylePanelSizePicker />
 			</StylePanelSection>
 			<StylePanelSection>
-				<StylePanelFontPicker />
+				{USE_FONT_PICKER && <StylePanelFontPicker />}
 				<StylePanelTextAlignPicker />
 				<StylePanelLabelAlignPicker />
 			</StylePanelSection>
@@ -91,6 +95,7 @@ export function StylePanelColorPicker() {
 }
 
 const tldrawSupportedOpacities = [0.1, 0.25, 0.5, 0.75, 1] as const
+
 /** @public @react */
 export function StylePanelOpacityPicker() {
 	const editor = useEditor()

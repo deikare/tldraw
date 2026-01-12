@@ -261,7 +261,7 @@ export function createInstanceRecordType(stylesById: Map<string, StyleProp<unkno
 			screenBounds: true,
 			insets: true,
 			zoomBrush: true,
-			isPenMode: true,
+			isPenMode: false,
 			isGridMode: true,
 			chatMessage: true,
 			isChatting: true,

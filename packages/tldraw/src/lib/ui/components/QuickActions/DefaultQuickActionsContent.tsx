@@ -8,6 +8,9 @@ import {
 import { useReadonly } from '../../hooks/useReadonly'
 import { TldrawUiMenuActionItem } from '../primitives/menus/TldrawUiMenuActionItem'
 
+const USE_REDO_GROUP = false
+const USE_DELETE_DUPLICATE_GROUP = false
+
 /** @public @react */
 export function DefaultQuickActionsContent() {
 	const editor = useEditor()
@@ -24,8 +27,8 @@ export function DefaultQuickActionsContent() {
 
 	return (
 		<>
-			<UndoRedoGroup />
-			<DeleteDuplicateGroup />
+			{USE_REDO_GROUP && <UndoRedoGroup />}
+			{USE_DELETE_DUPLICATE_GROUP && <DeleteDuplicateGroup />}
 		</>
 	)
 }

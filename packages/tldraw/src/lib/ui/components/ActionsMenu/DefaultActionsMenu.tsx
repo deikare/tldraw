@@ -20,6 +20,8 @@ export interface TLUiActionsMenuProps {
 	children?: ReactNode
 }
 
+const USE_ACTIONS_MENU = false
+
 /** @public @react */
 export const DefaultActionsMenu = memo(function DefaultActionsMenu({
 	children,
@@ -47,41 +49,45 @@ export const DefaultActionsMenu = memo(function DefaultActionsMenu({
 	if (isReadonlyMode && !isInAcceptableReadonlyState) return
 
 	return (
-		<TldrawUiPopover id="actions-menu">
-			<TldrawUiPopoverTrigger>
-				<TldrawUiToolbarButton
-					type="icon"
-					data-testid="actions-menu.button"
-					title={msg('actions-menu.title')}
-				>
-					<TldrawUiButtonIcon
-						icon={orientation === 'horizontal' ? 'dots-vertical' : 'dots-horizontal'}
-						small
-					/>
-				</TldrawUiToolbarButton>
-			</TldrawUiPopoverTrigger>
-			<TldrawUiPopoverContent
-				side={
-					orientation === 'horizontal'
-						? breakpoint >= PORTRAIT_BREAKPOINT.TABLET
-							? 'bottom'
-							: 'top'
-						: 'right'
-				}
-				sideOffset={6}
-			>
-				<TldrawUiToolbar
-					ref={ref}
-					label={msg('actions-menu.title')}
-					className="tlui-actions-menu"
-					data-testid="actions-menu.content"
-					orientation="grid"
-				>
-					<TldrawUiMenuContextProvider type="icons" sourceId="actions-menu">
-						{content}
-					</TldrawUiMenuContextProvider>
-				</TldrawUiToolbar>
-			</TldrawUiPopoverContent>
-		</TldrawUiPopover>
+		<>
+			{USE_ACTIONS_MENU && (
+				<TldrawUiPopover id="actions-menu">
+					<TldrawUiPopoverTrigger>
+						<TldrawUiToolbarButton
+							type="icon"
+							data-testid="actions-menu.button"
+							title={msg('actions-menu.title')}
+						>
+							<TldrawUiButtonIcon
+								icon={orientation === 'horizontal' ? 'dots-vertical' : 'dots-horizontal'}
+								small
+							/>
+						</TldrawUiToolbarButton>
+					</TldrawUiPopoverTrigger>
+					<TldrawUiPopoverContent
+						side={
+							orientation === 'horizontal'
+								? breakpoint >= PORTRAIT_BREAKPOINT.TABLET
+									? 'bottom'
+									: 'top'
+								: 'right'
+						}
+						sideOffset={6}
+					>
+						<TldrawUiToolbar
+							ref={ref}
+							label={msg('actions-menu.title')}
+							className="tlui-actions-menu"
+							data-testid="actions-menu.content"
+							orientation="grid"
+						>
+							<TldrawUiMenuContextProvider type="icons" sourceId="actions-menu">
+								{content}
+							</TldrawUiMenuContextProvider>
+						</TldrawUiToolbar>
+					</TldrawUiPopoverContent>
+				</TldrawUiPopover>
+			)}
+		</>
 	)
 })
