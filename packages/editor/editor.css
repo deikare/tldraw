@@ -197,59 +197,76 @@
 }
 
 .tl-theme__dark {
-	/* Canvas */
-	--tl-color-snap: hsl(0, 76%, 60%);
-	--tl-color-selection-fill: hsl(209, 100%, 57%, 20%);
-	--tl-color-selection-stroke: hsl(214, 84%, 56%);
-	--tl-color-background: hsl(240, 5%, 6.5%);
-	--tl-color-brush-fill: hsl(0, 0%, 71%, 5.1%);
-	--tl-color-brush-stroke: hsl(0, 0%, 71%, 25.1%);
-	--tl-color-grid: hsl(0, 0%, 40%);
-	/* UI */
-	--tl-color-low: hsl(260, 4.5%, 10.5%);
-	--tl-color-low-border: hsl(207, 10%, 10%);
-	--tl-color-culled: hsl(210, 11%, 19%);
-	--tl-color-muted-none: hsl(0, 0%, 100%, 0%);
-	--tl-color-muted-0: hsl(0, 0%, 100%, 2%);
-	--tl-color-muted-1: hsl(0, 0%, 100%, 10%);
-	--tl-color-muted-2: hsl(0, 0%, 100%, 5%);
-	--tl-color-hint: hsl(0, 0%, 100%, 7%);
-	--tl-color-overlay: hsl(0, 0%, 0%, 50%);
-	--tl-color-divider: hsl(240, 9%, 22%);
-	--tl-color-panel: hsl(235, 6.8%, 13.5%);
-	--tl-color-panel-contrast: hsl(245, 12%, 23%);
-	--tl-color-panel-overlay: hsl(210, 10%, 24%, 82%);
-	--tl-color-panel-transparent: hsla(235, 6.8%, 13.5%, 0%);
-	--tl-color-selected: hsl(217, 89%, 61%);
-	--tl-color-selected-contrast: hsl(0, 0%, 100%);
-	--tl-color-focus: hsl(217, 76%, 80%);
-	--tl-color-tooltip: hsla(0, 0%, 100%, 1);
-	/* Text */
-	--tl-color-text: hsl(210, 17%, 98%);
-	--tl-color-text-0: hsl(0, 9%, 94%);
-	--tl-color-text-1: hsl(0, 0%, 85%);
-	--tl-color-text-3: hsl(204, 4%, 75%);
-	--tl-color-text-shadow: hsl(210, 13%, 18%);
-	--tl-color-text-highlight: hsl(52, 100%, 41%);
-	--tl-color-text-highlight-p3: color(display-p3 0.8078 0.6225 0.0312);
-	/* Named */
-	--tl-color-primary: hsl(214, 84%, 56%);
-	--tl-color-success: hsl(123, 38%, 57%);
-	--tl-color-info: hsl(199, 92%, 56%);
-	--tl-color-warning: hsl(36, 100%, 57%);
-	--tl-color-danger: hsl(0, 82%, 66%);
-	--tl-color-laser: hsl(0, 100%, 50%);
-	/* Shadows */
-	--tl-shadow-1:
-		0px 1px 2px hsl(0, 0%, 0%, 16.1%), 0px 1px 3px hsl(0, 0%, 0%, 22%),
-		inset 0px 0px 0px 1px var(--tl-color-panel-contrast);
-	--tl-shadow-2:
-		0px 1px 3px hsl(0, 0%, 0%, 66.6%), 0px 2px 6px hsl(0, 0%, 0%, 33%),
-		inset 0px 0px 0px 1px var(--tl-color-panel-contrast);
-	--tl-shadow-3:
-		0px 1px 3px hsl(0, 0%, 0%, 50%), 0px 2px 12px hsl(0, 0%, 0%, 50%),
-		inset 0px 0px 0px 1px var(--tl-color-panel-contrast);
+    /* Canvas */
+    --tl-color-snap: hsl(0, 82%, 66%);
+    --tl-color-selection-fill: hsla(191, 100%, 42%, 0.22);
+    --tl-color-selection-stroke: hsl(191, 100%, 42%);
+    --tl-color-background: hsl(222, 18%, 8%); /* darker than #1a202c */
+
+    --tl-color-brush-fill: hsla(0, 0%, 100%, 5%);
+    --tl-color-brush-stroke: hsla(0, 0%, 100%, 28%);
+    --tl-color-grid: hsla(0, 0%, 100%, 18%);
+
+    /* UI Surfaces */
+    --tl-color-low: hsl(222, 18%, 8%);
+    --tl-color-low-border: hsl(215, 15%, 22%);
+    --tl-color-culled: hsl(215, 18%, 14%);
+
+    --tl-color-muted-none: hsla(0, 0%, 100%, 0%);
+    --tl-color-muted-0: hsla(0, 0%, 100%, 3%);
+    --tl-color-muted-1: hsla(0, 0%, 100%, 10%);
+    --tl-color-muted-2: hsla(0, 0%, 100%, 6%);
+
+    --tl-color-hint: hsla(0, 0%, 100%, 8%);
+    --tl-color-overlay: hsla(0, 0%, 0%, 60%);
+    --tl-color-divider: hsl(215, 15%, 22%);
+
+    --tl-color-panel: hsl(215, 18%, 14%);
+    --tl-color-panel-contrast: hsl(215, 15%, 22%);
+    --tl-color-panel-overlay: hsla(215, 18%, 14%, 82%);
+    --tl-color-panel-transparent: hsla(215, 18%, 14%, 0%);
+
+    --tl-color-selected: #00bcd4;
+    --tl-color-selected-contrast: #ffffff;
+    --tl-color-focus: #4dd0e1;
+
+    --tl-color-tooltip: #ffffff;
+
+    /* Text */
+    --tl-color-text: #ffffff;
+    --tl-color-text-0: #edf2f7;
+    --tl-color-text-1: #e2e8f0;
+    --tl-color-text-3: #a0aec0;
+
+    --tl-color-text-shadow: hsl(222, 18%, 8%);
+
+    --tl-color-text-highlight: #ffc107;
+    --tl-color-text-highlight-p3: color(display-p3 0.8078 0.7225 0.0312);
+
+    /* Named */
+    --tl-color-primary: #00bcd4;
+    --tl-color-success: #22c55e;
+    --tl-color-info: #38bdf8;
+    --tl-color-warning: #fbbf24;
+    --tl-color-danger: #f56565;
+    --tl-color-laser: #ff0000;
+
+    /* Shadows */
+    --tl-shadow-1:
+            0px 1px 2px hsla(0, 0%, 0%, 30%),
+            0px 1px 3px hsla(0, 0%, 0%, 35%),
+            inset 0px 0px 0px 1px var(--tl-color-panel-contrast);
+
+    --tl-shadow-2:
+            0px 2px 6px hsla(0, 0%, 0%, 45%),
+            inset 0px 0px 0px 1px var(--tl-color-panel-contrast);
+
+    --tl-shadow-3:
+            0px 4px 14px hsla(0, 0%, 0%, 55%),
+            inset 0px 0px 0px 1px var(--tl-color-panel-contrast);
 }
+
+
 
 .tl-counter-scaled {
 	transform: scale(var(--tl-scale));

@@ -343,215 +343,305 @@ export const DefaultColorThemePalette: {
 	},
 	darkMode: {
 		id: 'dark',
-		text: 'hsl(210, 17%, 98%)',
-		background: 'hsl(240, 5%, 6.5%)',
+		text: '#ffffff',
+		background: 'hsl(222, 18%, 8%)',
 		solid: '#010403',
 
 		black: {
 			solid: '#f2f2f2',
 			fill: '#f2f2f2',
 			linedFill: '#ffffff',
-			frameHeadingStroke: '#5c5c5c',
-			frameHeadingFill: '#252525',
-			frameStroke: '#5c5c5c',
-			frameFill: '#0c0c0c',
-			frameText: '#f2f2f2',
-			noteFill: '#2c2c2c',
-			noteText: '#f2f2f2',
-			semi: '#2c3036',
-			pattern: '#989898',
-			highlightSrgb: '#d2b700',
-			highlightP3: 'color(display-p3 0.8078 0.6225 0.0312)',
-		},
-		blue: {
-			solid: '#4f72fc', // 3c60f0
-			fill: '#4f72fc',
-			linedFill: '#3c5cdd',
-			frameHeadingStroke: '#384994',
-			frameHeadingFill: '#1C2036',
-			frameStroke: '#384994',
-			frameFill: '#11141f',
-			frameText: '#f2f2f2',
-			noteFill: '#2A3F98',
-			noteText: '#f2f2f2',
-			semi: '#262d40',
-			pattern: '#3a4b9e',
-			highlightSrgb: '#0079d2',
-			highlightP3: 'color(display-p3 0.0032 0.4655 0.7991)',
-		},
-		green: {
-			solid: '#099268',
-			fill: '#099268',
-			linedFill: '#087856',
-			frameHeadingStroke: '#10513C',
-			frameHeadingFill: '#14241f',
-			frameStroke: '#10513C',
-			frameFill: '#0E1614',
-			frameText: '#f2f2f2',
-			noteFill: '#014429',
-			noteText: '#f2f2f2',
-			semi: '#253231',
-			pattern: '#366a53',
-			highlightSrgb: '#009774',
-			highlightP3: 'color(display-p3 0.0085 0.582 0.4604)',
-		},
-		grey: {
-			solid: '#9398b0',
-			fill: '#9398b0',
-			linedFill: '#8388a5',
-			frameHeadingStroke: '#42474D',
-			frameHeadingFill: '#23262A',
-			frameStroke: '#42474D',
-			frameFill: '#151719',
-			frameText: '#f2f2f2',
-			noteFill: '#56595F',
-			noteText: '#f2f2f2',
-			semi: '#33373c',
-			pattern: '#7c8187',
-			highlightSrgb: '#9cb4cb',
-			highlightP3: 'color(display-p3 0.6299 0.7012 0.7856)',
-		},
-		'light-blue': {
-			solid: '#4dabf7',
-			fill: '#4dabf7',
-			linedFill: '#2793ec',
-			frameHeadingStroke: '#075797',
-			frameHeadingFill: '#142839',
-			frameStroke: '#075797',
-			frameFill: '#0B1823',
-			frameText: '#f2f2f2',
-			noteFill: '#1F5495',
-			noteText: '#f2f2f2',
-			semi: '#2a3642',
-			pattern: '#4d7aa9',
-			highlightSrgb: '#00bdc8',
-			highlightP3: 'color(display-p3 0.0023 0.7259 0.7735)',
-		},
-		'light-green': {
-			solid: '#40c057',
-			fill: '#40c057',
-			linedFill: '#37a44b',
-			frameHeadingStroke: '#1C5427',
-			frameHeadingFill: '#18251A',
-			frameStroke: '#1C5427',
-			frameFill: '#0F1911',
-			frameText: '#f2f2f2',
-			noteFill: '#21581D',
-			noteText: '#f2f2f2',
-			semi: '#2a3830',
-			pattern: '#4e874e',
-			highlightSrgb: '#00a000',
-			highlightP3: 'color(display-p3 0.2711 0.6172 0.0195)',
-		},
-		'light-red': {
-			solid: '#ff8787',
-			fill: '#ff8787',
-			linedFill: '#ff6666',
-			frameHeadingStroke: '#6f3232', // Darker and desaturated variant of solid
-			frameHeadingFill: '#341818', // Deep, muted dark red
-			frameStroke: '#6f3232', // Matches headingStroke
-			frameFill: '#181212', // Darker, muted background shade
-			frameText: '#f2f2f2', // Consistent bright text color
-			noteFill: '#7a3333', // Medium-dark, muted variant of solid
-			noteText: '#f2f2f2',
-			semi: '#3c2b2b', // Subdued, darker neutral-red tone
-			pattern: '#a56767', // Existing pattern shade retained
-			highlightSrgb: '#db005b',
-			highlightP3: 'color(display-p3 0.7849 0.0585 0.3589)',
-		},
-		'light-violet': {
-			solid: '#e599f7',
-			fill: '#e599f7',
-			linedFill: '#dc71f4',
-			frameHeadingStroke: '#6c367a',
-			frameHeadingFill: '#2D2230',
-			frameStroke: '#6c367a',
-			frameFill: '#1C151E',
-			frameText: '#f2f2f2',
-			noteFill: '#762F8E',
-			noteText: '#f2f2f2',
-			semi: '#383442',
-			pattern: '#9770a9',
-			highlightSrgb: '#c400c7',
-			highlightP3: 'color(display-p3 0.7024 0.0403 0.753)',
-		},
-		orange: {
-			solid: '#f76707',
-			fill: '#f76707',
-			linedFill: '#f54900',
-			frameHeadingStroke: '#773a0e', // Darker, muted version of solid
-			frameHeadingFill: '#2f1d13', // Deep, warm, muted background
-			frameStroke: '#773a0e', // Matches headingStroke
-			frameFill: '#1c1512', // Darker, richer muted background
-			frameText: '#f2f2f2', // Bright text for contrast
-			noteFill: '#7c3905', // Muted dark variant for note fill
-			noteText: '#f2f2f2',
-			semi: '#3b2e27', // Muted neutral-orange tone
-			pattern: '#9f552d', // Retained existing shade
-			highlightSrgb: '#d07a00',
-			highlightP3: 'color(display-p3 0.7699 0.4937 0.0085)',
-		},
-		red: {
-			solid: '#e03131',
-			fill: '#e03131',
-			linedFill: '#c31d1d',
-			frameHeadingStroke: '#701e1e', // Darker, muted variation of solid
-			frameHeadingFill: '#301616', // Deep, muted reddish backdrop
-			frameStroke: '#701e1e', // Matches headingStroke
-			frameFill: '#1b1313', // Rich, dark muted background
-			frameText: '#f2f2f2', // Bright text for readability
-			noteFill: '#7e201f', // Muted dark variant for note fill
-			noteText: '#f2f2f2',
-			semi: '#382726', // Dark neutral-red tone
-			pattern: '#8f3734', // Existing pattern color retained
-			highlightSrgb: '#de002c',
-			highlightP3: 'color(display-p3 0.7978 0.0509 0.2035)',
-		},
-		violet: {
-			solid: '#ae3ec9',
-			fill: '#ae3ec9',
-			linedFill: '#8f2fa7',
-			frameHeadingStroke: '#6d1583', // Darker, muted variation of solid
-			frameHeadingFill: '#27152e', // Deep, rich muted violet backdrop
-			frameStroke: '#6d1583', // Matches headingStroke
-			frameFill: '#1b0f21', // Darker muted violet background
-			frameText: '#f2f2f2', // Consistent bright text color
-			noteFill: '#5f1c70', // Muted dark variant for note fill
-			noteText: '#f2f2f2',
-			semi: '#342938', // Dark neutral-violet tone
-			pattern: '#763a8b', // Retained existing pattern color
-			highlightSrgb: '#9e00ee',
-			highlightP3: 'color(display-p3 0.5651 0.0079 0.8986)',
-		},
-		yellow: {
-			solid: '#ffc034',
-			fill: '#ffc034',
-			linedFill: '#ffae00',
-			frameHeadingStroke: '#684e12', // Darker, muted variant of solid
-			frameHeadingFill: '#2a2113', // Rich, muted dark-yellow background
-			frameStroke: '#684e12', // Matches headingStroke
-			frameFill: '#1e1911', // Darker muted shade for background fill
-			frameText: '#f2f2f2', // Bright text color for readability
-			noteFill: '#8a5e1c', // Muted, dark complementary variant
-			noteText: '#f2f2f2',
-			semi: '#3b352b', // Dark muted neutral-yellow tone
-			pattern: '#fecb92', // Existing shade retained
-			highlightSrgb: '#d2b700',
+
+			frameHeadingStroke: 'hsl(215, 15%, 22%)',
+			frameHeadingFill: 'hsl(215, 18%, 14%)',
+
+			frameStroke: 'hsl(215, 15%, 22%)',
+			frameFill: 'hsl(222, 18%, 8%)',
+
+			frameText: '#ffffff',
+
+			noteFill: 'hsl(215, 18%, 14%)',
+			noteText: '#ffffff',
+
+			semi: 'hsl(215, 20%, 18%)',
+			pattern: '#a0aec0',
+
+			highlightSrgb: '#ffc107',
 			highlightP3: 'color(display-p3 0.8078 0.7225 0.0312)',
 		},
+
+		blue: {
+			solid: '#3b82f6',
+			fill: '#3b82f6',
+			linedFill: '#2563eb',
+
+			frameHeadingStroke: '#1e40af',
+			frameHeadingFill: '#0f172a',
+
+			frameStroke: '#1e40af',
+			frameFill: '#0a1020',
+
+			frameText: '#ffffff',
+
+			noteFill: '#1d4ed8',
+			noteText: '#ffffff',
+
+			semi: '#1a2544',
+			pattern: '#60a5fa',
+
+			highlightSrgb: '#1d4ed8',
+			highlightP3: 'color(display-p3 0.11 0.31 0.85)',
+		},
+
+		green: {
+			solid: '#22c55e',
+			fill: '#22c55e',
+			linedFill: '#16a34a',
+
+			frameHeadingStroke: '#14532d',
+			frameHeadingFill: '#0a1f14',
+
+			frameStroke: '#14532d',
+			frameFill: '#07160f',
+
+			frameText: '#ffffff',
+
+			noteFill: '#15803d',
+			noteText: '#ffffff',
+
+			semi: '#153827',
+			pattern: '#4ade80',
+
+			highlightSrgb: '#00ff88',
+			highlightP3: 'color(display-p3 0.0 1.0 0.5)',
+		},
+
+		grey: {
+			solid: '#94a3b8',
+			fill: '#94a3b8',
+			linedFill: '#64748b',
+
+			frameHeadingStroke: '#475569',
+			frameHeadingFill: '#0f172a',
+
+			frameStroke: '#475569',
+			frameFill: '#0a1020',
+
+			frameText: '#ffffff',
+
+			noteFill: '#475569',
+			noteText: '#ffffff',
+
+			semi: '#1f2a38',
+			pattern: '#cbd5f5',
+
+			highlightSrgb: '#cbd5f5',
+			highlightP3: 'color(display-p3 0.79 0.84 0.96)',
+		},
+
+		'light-blue': {
+			solid: '#00bcd4',
+			fill: '#00bcd4',
+			linedFill: '#00acc1',
+
+			frameHeadingStroke: '#0e7490',
+			frameHeadingFill: '#0a1f27',
+
+			frameStroke: '#0e7490',
+			frameFill: '#06161d',
+
+			frameText: '#ffffff',
+
+			noteFill: '#164e63',
+			noteText: '#ffffff',
+
+			semi: '#0f2a33',
+			pattern: '#3aaec4',
+
+			highlightSrgb: '#00e5ff',
+			highlightP3: 'color(display-p3 0.0 0.9 1.0)',
+		},
+
+		'light-green': {
+			solid: '#4ade80',
+			fill: '#4ade80',
+			linedFill: '#22c55e',
+
+			frameHeadingStroke: '#166534',
+			frameHeadingFill: '#0a1f14',
+
+			frameStroke: '#166534',
+			frameFill: '#07160f',
+
+			frameText: '#ffffff',
+
+			noteFill: '#16a34a',
+			noteText: '#ffffff',
+
+			semi: '#153827',
+			pattern: '#86efac',
+
+			highlightSrgb: '#00ff66',
+			highlightP3: 'color(display-p3 0.0 1.0 0.4)',
+		},
+
+		'light-red': {
+			solid: '#ff6b6b',
+			fill: '#ff6b6b',
+			linedFill: '#fa5252',
+
+			frameHeadingStroke: '#7f1d1d',
+			frameHeadingFill: '#1f0b0b',
+
+			frameStroke: '#7f1d1d',
+			frameFill: '#120606',
+
+			frameText: '#ffffff',
+
+			noteFill: '#b91c1c',
+			noteText: '#ffffff',
+
+			semi: '#3f2323',
+			pattern: '#ffa8a8',
+
+			highlightSrgb: '#ff0044',
+			highlightP3: 'color(display-p3 1.0 0.0 0.27)',
+		},
+
+		'light-violet': {
+			solid: '#e879f9',
+			fill: '#e879f9',
+			linedFill: '#d946ef',
+
+			frameHeadingStroke: '#6b21a8',
+			frameHeadingFill: '#1a0b27',
+
+			frameStroke: '#6b21a8',
+			frameFill: '#12061c',
+
+			frameText: '#ffffff',
+
+			noteFill: '#a21caf',
+			noteText: '#ffffff',
+
+			semi: '#3b2345',
+			pattern: '#f0abfc',
+
+			highlightSrgb: '#d400ff',
+			highlightP3: 'color(display-p3 0.83 0.0 1.0)',
+		},
+
+		orange: {
+			solid: '#fb923c',
+			fill: '#fb923c',
+			linedFill: '#f97316',
+
+			frameHeadingStroke: '#9a3412',
+			frameHeadingFill: '#24100a',
+
+			frameStroke: '#9a3412',
+			frameFill: '#160904',
+
+			frameText: '#ffffff',
+
+			noteFill: '#c2410c',
+			noteText: '#ffffff',
+
+			semi: '#3f2a20',
+			pattern: '#fdba74',
+
+			highlightSrgb: '#ff7a00',
+			highlightP3: 'color(display-p3 1.0 0.48 0.0)',
+		},
+
+		red: {
+			solid: '#ef4444',
+			fill: '#ef4444',
+			linedFill: '#dc2626',
+
+			frameHeadingStroke: '#7f1d1d',
+			frameHeadingFill: '#1f0b0b',
+
+			frameStroke: '#7f1d1d',
+			frameFill: '#120606',
+
+			frameText: '#ffffff',
+
+			noteFill: '#b91c1c',
+			noteText: '#ffffff',
+
+			semi: '#3f2323',
+			pattern: '#f87171',
+
+			highlightSrgb: '#ff0033',
+			highlightP3: 'color(display-p3 1.0 0.0 0.2)',
+		},
+
+		violet: {
+			solid: '#a855f7',
+			fill: '#a855f7',
+			linedFill: '#9333ea',
+
+			frameHeadingStroke: '#581c87',
+			frameHeadingFill: '#1a0927',
+
+			frameStroke: '#581c87',
+			frameFill: '#11051a',
+
+			frameText: '#ffffff',
+
+			noteFill: '#7e22ce',
+			noteText: '#ffffff',
+
+			semi: '#33224a',
+			pattern: '#c084fc',
+
+			highlightSrgb: '#9b00ff',
+			highlightP3: 'color(display-p3 0.6 0.0 1.0)',
+		},
+
+		yellow: {
+			solid: '#facc15',
+			fill: '#facc15',
+			linedFill: '#eab308',
+
+			frameHeadingStroke: '#854d0e',
+			frameHeadingFill: '#1f1609',
+
+			frameStroke: '#854d0e',
+			frameFill: '#130c05',
+
+			frameText: '#ffffff',
+
+			noteFill: '#ca8a04',
+			noteText: '#ffffff',
+
+			semi: '#3b3320',
+			pattern: '#fde68a',
+
+			highlightSrgb: '#ffd700',
+			highlightP3: 'color(display-p3 1.0 0.85 0.0)',
+		},
+
 		white: {
 			solid: '#f3f3f3',
 			fill: '#f3f3f3',
-			linedFill: '#f3f3f3',
-			semi: '#f5f5f5',
-			pattern: '#f9f9f9',
+			linedFill: '#ffffff',
+
 			frameHeadingStroke: '#ffffff',
 			frameHeadingFill: '#ffffff',
+
 			frameStroke: '#ffffff',
 			frameFill: '#ffffff',
+
 			frameText: '#000000',
+
 			noteFill: '#eaeaea',
 			noteText: '#1d1d1d',
+
+			semi: '#f5f5f5',
+			pattern: '#f9f9f9',
+
 			highlightSrgb: '#ffffff',
 			highlightP3: 'color(display-p3 1 1 1)',
 		},
