@@ -24,6 +24,7 @@ import { DrawShapeUtil } from '../DrawShapeUtil'
 
 type DrawableShape = TLDrawShape | TLHighlightShape
 const disableSnapping = true
+const angleSnappingDefault = false
 
 export class Drawing extends StateNode {
 	static override id = 'drawing'
@@ -461,14 +462,14 @@ export class Drawing extends StateNode {
 				if (this.didJustShiftClickToExtendPreviousShapeLine) {
 					if (this.editor.inputs.getIsDragging()) {
 						// If we've just shift clicked to extend a line, only snap once we've started dragging
-						shouldSnapToAngle = ctrlKey
+						shouldSnapToAngle = !ctrlKey
 						this.didJustShiftClickToExtendPreviousShapeLine = false
 					} else {
 						// noop
 					}
 				} else {
 					// If we're not shift clicking to extend a line, but we're holding shift, then we should snap
-					shouldSnapToAngle = ctrlKey // don't snap angle while snapping line
+					shouldSnapToAngle = !ctrlKey // don't snap angle while snapping line
 				}
 
 				let newPoint = this.editor.getPointInShapeSpace(shape, currentPagePoint).toFixed().toJson()
@@ -550,7 +551,7 @@ export class Drawing extends StateNode {
 					if (shouldSnapToAngle) {
 						// Snap line angle to nearest 15 degrees
 						const currentAngle = Vec.Angle(pagePointWhereCurrentSegmentChanged, currentPagePoint)
-						const snappedAngle = snapAngle(currentAngle, 24)
+						const snappedAngle = snapAngle(currentAngle, angleSnappingDefault ? 12 : 360)
 						const angleDiff = snappedAngle - currentAngle
 
 						pagePoint = Vec.RotWith(
