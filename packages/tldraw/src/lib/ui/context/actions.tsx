@@ -367,22 +367,22 @@ export function ActionsProvider({ overrides, children }: ActionsProviderProps) {
 					openWindow(shape.props.url, '_blank')
 				},
 			},
-			{
-				id: 'select-zoom-tool',
-				readonlyOk: true,
-				kbd: 'z',
-				onSelect(source) {
-					if (editor.root.getCurrent()?.id === 'zoom') return
-
-					trackEvent('zoom-tool', { source })
-					if (!(editor.inputs.getShiftKey() || editor.inputs.getCtrlKey())) {
-						const currentTool = editor.root.getCurrent()
-						if (currentTool && currentTool.getCurrent()?.id === 'idle') {
-							editor.setCurrentTool('zoom', { onInteractionEnd: currentTool.id, maskAs: 'zoom' })
-						}
-					}
-				},
-			},
+			// {
+			// 	id: 'select-zoom-tool',
+			// 	readonlyOk: true,
+			// 	kbd: 'z',
+			// 	onSelect(source) {
+			// 		if (editor.root.getCurrent()?.id === 'zoom') return
+			//
+			// 		trackEvent('zoom-tool', { source })
+			// 		if (!(editor.inputs.getShiftKey() || editor.inputs.getCtrlKey())) {
+			// 			const currentTool = editor.root.getCurrent()
+			// 			if (currentTool && currentTool.getCurrent()?.id === 'idle') {
+			// 				editor.setCurrentTool('zoom', { onInteractionEnd: currentTool.id, maskAs: 'zoom' })
+			// 			}
+			// 		}
+			// 	},
+			// },
 			{
 				id: 'convert-to-bookmark',
 				label: 'action.convert-to-bookmark',

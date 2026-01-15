@@ -184,7 +184,7 @@ export class Drawing extends StateNode {
 
 		this.lastRecordedPoint = originPagePoint.clone()
 
-		if (this.initialShape) {
+		if (this.initialShape && !disableSnapping) {
 			const shape = this.editor.getShape<DrawableShape>(this.initialShape.id)
 
 			if (shape && this.segmentMode === 'straight') {
@@ -535,6 +535,17 @@ export class Drawing extends StateNode {
 					])
 				} else {
 					this.editor.snaps.clearIndicators()
+
+					//TODO this calculates angle
+					// const tmp = Vec.Angle(pagePointWhereCurrentSegmentChanged, currentPagePoint)
+					//
+					// const asAngl = Math.floor(tmp * 180 / 3.14)
+					// let x
+					// if (asAngl < 0)
+					// 	x = -asAngl
+					// else x = 360.0 -asAngl
+					//
+					// console.log(x)
 
 					if (shouldSnapToAngle) {
 						// Snap line angle to nearest 15 degrees

@@ -1073,7 +1073,7 @@ export interface DefaultToolbarProps {
 }
 
 // @public (undocumented)
-export const defaultTools: readonly [typeof EraserTool, typeof HandTool, typeof LaserTool, typeof ZoomTool, typeof SelectTool];
+export const defaultTools: readonly [typeof EraserTool, typeof HandTool, typeof LaserTool, typeof SelectTool];
 
 // @public (undocumented)
 export const DefaultVideoToolbar: NamedExoticComponent<TLUiVideoToolbarProps>;
