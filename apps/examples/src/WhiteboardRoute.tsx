@@ -139,7 +139,6 @@ export default function WhiteboardRoute() {
 					const current = editor.getCurrentPageId()
 					const index = pages.findIndex((p) => p.id === current)
 					const next = pages[index + 1]
-					editor.setCurrentTool('select')
 					if (next) {
 						editor.setCurrentPage(next)
 					} else editor.createPage({ name: `Strona ${index + 2}` })
@@ -156,10 +155,14 @@ export default function WhiteboardRoute() {
 					const index = pages.findIndex((p) => p.id === current)
 					const next = pages[index - 1]
 					if (next) {
-						editor.setCurrentTool('select')
 						editor.setCurrentPage(next)
 					}
 				},
+			}
+
+			actions.undo = {
+				...actions.undo,
+				kbd: 'ctrl+z,z',
 			}
 
 			return actions
@@ -173,7 +176,8 @@ export default function WhiteboardRoute() {
 				overrides={uiOverrides}
 				onMount={(editor) => {
 					editorRef.current = editor
-
+					editor.user.updateUserPreferences({ areKeyboardShortcutsEnabled: true })
+					editor.setCurrentTool('draw')
 					if (snapshotRef.current) {
 						loadSnapshot(editor.store, snapshotRef.current)
 					}

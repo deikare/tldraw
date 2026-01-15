@@ -155,7 +155,7 @@ export function useDocumentEvents() {
 					// focused, for example when the user has just interacted
 					// with the toolbar. We need to handle it on the window
 					// (ofc ensuring it's a correct time for a shortcut)
-					return
+					break
 				}
 				case 'Escape': {
 					// In certain browsers, pressing escape while in full screen mode
@@ -215,10 +215,6 @@ export function useDocumentEvents() {
 			editor.markEventAsHandled(e)
 
 			if (areShortcutsDisabled(editor)) {
-				return
-			}
-
-			if (e.key === ',') {
 				return
 			}
 
