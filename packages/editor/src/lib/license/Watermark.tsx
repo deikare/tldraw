@@ -99,9 +99,9 @@ const WatermarkInner = memo(function WatermarkInner({
 	const maskCss = `url('${src}') center 100% / 100% no-repeat`
 	const url = 'https://tldraw.dev/?utm_source=sdk&utm_medium=organic&utm_campaign=watermark'
 
-	if (isUnlicensed) {
-		return <UnlicensedWatermark isDebugMode={isDebugMode} isMobile={isMobile} />
-	}
+	// if (isUnlicensed) {
+	// 	return <UnlicensedWatermark isDebugMode={isDebugMode} isMobile={isMobile} />
+	// }
 
 	return (
 		<div
