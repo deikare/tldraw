@@ -477,6 +477,7 @@ export function moveShapesToPoint({
 	const accelKey = editor.inputs.getAccelKey()
 
 	const isGridMode = editor.getInstanceState().isGridMode
+	const snapToGridDefault = false
 
 	const gridSize = editor.getDocumentSettings().gridSize
 
@@ -542,7 +543,13 @@ export function moveShapesToPoint({
 
 	// we don't want to snap to the grid if we're holding the accel key, if we've already snapped into a pit, or if we're showing snapping indicators
 	const snapIndicators = editor.snaps.getIndicators()
-	if (isGridMode && !accelKey && !snappedToPit && snapIndicators.length === 0) {
+	if (
+		isGridMode &&
+		snapToGridDefault &&
+		!accelKey &&
+		!snappedToPit &&
+		snapIndicators.length === 0
+	) {
 		averageSnappedPoint.snapToGrid(gridSize)
 	}
 
