@@ -165,6 +165,84 @@ export default function WhiteboardRoute() {
 				kbd: 'ctrl+z,z',
 			}
 
+			actions.pickDraw = {
+				id: 'pick-draw',
+				label: 'Pick draw',
+				kbd: '1',
+				onSelect(source: TLUiEventSource): Promise<void> | void {
+					editor.setCurrentTool('draw')
+				},
+			}
+
+			actions.pickText = {
+				id: 'pick-text',
+				label: 'Pick text',
+				kbd: '2',
+				onSelect(source: TLUiEventSource): Promise<void> | void {
+					editor.setCurrentTool('text')
+				},
+			}
+
+			actions.pickEraser = {
+				id: 'pick-eraser',
+				label: 'Pick eraser',
+				kbd: '3',
+				onSelect(source: TLUiEventSource): Promise<void> | void {
+					editor.setCurrentTool('eraser')
+				},
+			}
+
+			actions.pickSelect = {
+				id: 'pick-select',
+				label: 'Pick select',
+				kbd: '4',
+				onSelect(source: TLUiEventSource): Promise<void> | void {
+					editor.setCurrentTool('select')
+				},
+			}
+
+			actions.pickHex = {
+				id: 'pick-hex',
+				label: 'Pick hex',
+				kbd: '5',
+				onSelect(source: TLUiEventSource): Promise<void> | void {
+					editor.setCurrentTool('geo')
+					editor.updateInstanceState({
+						stylesForNextShape: {
+							'tldraw:geo': 'hexagon',
+						},
+					})
+				},
+			}
+
+			actions.pickEllipsis = {
+				id: 'pick-ellipsis',
+				label: 'Pick ellipsis',
+				kbd: '6',
+				onSelect(source: TLUiEventSource): Promise<void> | void {
+					editor.setCurrentTool('geo')
+					editor.updateInstanceState({
+						stylesForNextShape: {
+							'tldraw:geo': 'ellipse',
+						},
+					})
+				},
+			}
+
+			actions.pickHighlight = {
+				id: 'pick-highlight',
+				label: 'Pick highlight',
+				kbd: '8',
+				onSelect(source: TLUiEventSource): Promise<void> | void {
+					editor.setCurrentTool('highlight')
+				},
+			}
+
+			actions['toggle-focus-mode'] = {
+				...actions['toggle-focus-mode'],
+				kbd: actions['toggle-focus-mode'].kbd + ',`',
+			}
+
 			return actions
 		},
 	}
