@@ -92,7 +92,7 @@ export default function WhiteboardRoute() {
 			}
 		}, 500)
 
-		const unsubscribe = store.listen(save)
+		const unsubscribe = store.listen(save, { scope: 'document' })
 
 		return () => {
 			unsubscribe()
