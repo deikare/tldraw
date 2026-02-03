@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import {
 	DefaultSpinner,
 	Editor,
+	STROKE_SIZES,
 	TLUiActionsContextType,
 	TLUiEventSource,
 	TLUiOverrideHelpers,
@@ -17,6 +18,11 @@ import {
 import 'tldraw/tldraw.css'
 
 type LoadState = { status: 'loading' } | { status: 'ready' } | { status: 'error'; error: string }
+
+STROKE_SIZES.s = 1
+STROKE_SIZES.m = 2
+STROKE_SIZES.l = 3
+STROKE_SIZES.xl = 4
 
 export default function WhiteboardRoute() {
 	const { id } = useParams<{ id: string }>()
@@ -273,7 +279,9 @@ export default function WhiteboardRoute() {
 							tool === 'select'
 						) {
 							editor.setStyleForNextShapes(DefaultDashStyle, 'solid') // solid
-							editor.setStyleForNextShapes(DefaultSizeStyle, 's') // small
+							const chosenSize = editor.getStyleForNextShape(DefaultSizeStyle)
+							if (chosenSize === 'l' || chosenSize === 'xl')
+								editor.setStyleForNextShapes(DefaultSizeStyle, 's')
 						} else if (tool === 'text') {
 							editor.setStyleForNextShapes(DefaultSizeStyle, 'm') // medium
 						}
