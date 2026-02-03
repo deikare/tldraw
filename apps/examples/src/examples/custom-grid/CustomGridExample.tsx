@@ -80,7 +80,7 @@ export default function CustomGridExample() {
 	)
 }
 
-function drawLine(
+export function drawLine(
 	ctx: CanvasRenderingContext2D,
 	x1: number,
 	y1: number,

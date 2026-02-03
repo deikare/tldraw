@@ -1,28 +1,124 @@
 import { DefaultDashStyle, DefaultFontStyle, DefaultSizeStyle } from '@tldraw/tlschema'
 import { throttle } from 'lodash'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
+	approximately,
+	createTLStore,
 	DefaultSpinner,
+	DefaultStylePanel,
 	Editor,
+	getSnapshot,
+	loadSnapshot,
 	STROKE_SIZES,
+	TLComponents,
+	Tldraw,
 	TLUiActionsContextType,
 	TLUiEventSource,
 	TLUiOverrideHelpers,
 	TLUiOverrides,
-	Tldraw,
-	createTLStore,
-	getSnapshot,
-	loadSnapshot,
+	useEditor,
+	useIsDarkMode,
+	useValue,
 } from 'tldraw'
 import 'tldraw/tldraw.css'
+import { drawLine } from './examples/custom-grid/CustomGridExample'
 
 type LoadState = { status: 'loading' } | { status: 'ready' } | { status: 'error'; error: string }
 
-STROKE_SIZES.s = 1
-STROKE_SIZES.m = 2
+STROKE_SIZES.s = 2
+STROKE_SIZES.m = 1.35
 STROKE_SIZES.l = 3
 STROKE_SIZES.xl = 4
+
+const components: TLComponents = {
+	// [1]
+	StylePanel: null,
+	Grid: ({ size, ...camera }) => {
+		const editor = useEditor()
+
+		const size2 = 30
+
+		// [2]
+		const screenBounds = useValue('screenBounds', () => editor.getViewportScreenBounds(), [])
+		const devicePixelRatio = useValue('dpr', () => editor.getInstanceState().devicePixelRatio, [])
+		const isDarkMode = useIsDarkMode()
+
+		const canvas = useRef<HTMLCanvasElement>(null)
+
+		useLayoutEffect(() => {
+			if (!canvas.current) return
+			// [3]
+			const canvasW = screenBounds.w * devicePixelRatio
+			const canvasH = screenBounds.h * devicePixelRatio
+			canvas.current.width = canvasW
+			canvas.current.height = canvasH
+
+			const ctx = canvas.current?.getContext('2d')
+			if (!ctx) return
+
+			// [4]
+			ctx.clearRect(0, 0, canvasW, canvasH)
+
+			// [5]
+			const pageViewportBounds = editor.getViewportPageBounds()
+
+			const startPageX = Math.ceil(pageViewportBounds.minX / size2) * size2
+			const startPageY = Math.ceil(pageViewportBounds.minY / size2) * size2
+			const endPageX = Math.floor(pageViewportBounds.maxX / size2) * size2
+			const endPageY = Math.floor(pageViewportBounds.maxY / size2) * size2
+			const numRows = Math.round((endPageY - startPageY) / size2)
+			const numCols = Math.round((endPageX - startPageX) / size2)
+
+			ctx.strokeStyle = isDarkMode ? '#2a2a2a' : '#BBB'
+
+			// [6]
+			for (let row = 0; row <= numRows; row++) {
+				const pageY = startPageY + row * size2
+				// convert the page-space Y offset into our canvas' coordinate space
+				const canvasY = (pageY + camera.y) * camera.z * devicePixelRatio
+				const isMajorLine = approximately(pageY % (size2 * 10), 0)
+				drawLine(ctx, 0, canvasY, canvasW, canvasY, 1)
+			}
+			for (let col = 0; col <= numCols; col++) {
+				const pageX = startPageX + col * size2
+				// convert the page-space X offset into our canvas' coordinate space
+				const canvasX = (pageX + camera.x) * camera.z * devicePixelRatio
+				const isMajorLine = approximately(pageX % (size2 * 10), 0)
+				drawLine(ctx, canvasX, 0, canvasX, canvasH, 1)
+			}
+		}, [screenBounds, camera, size2, devicePixelRatio, editor, isDarkMode])
+
+		// [7]
+		return <canvas className="tl-grid" ref={canvas} />
+	},
+}
+
+function LeftStyleSidebar({ open }: { open: boolean }) {
+	if (!open) return null
+
+	return (
+		<div
+			style={{
+				position: 'absolute',
+				top: 48,
+				left: 8,
+				width: 280,
+				background: 'var(--tlui-panel-bg)',
+				borderRadius: 8,
+				boxShadow: 'var(--tlui-shadow-medium)',
+				padding: 8,
+				zIndex: 1000,
+			}}
+		>
+			<DefaultStylePanel />
+		</div>
+	)
+}
+
+export function useLeftStylePanelState() {
+	return useState(false)
+}
 
 export default function WhiteboardRoute() {
 	const { id } = useParams<{ id: string }>()
@@ -258,7 +354,9 @@ export default function WhiteboardRoute() {
 			<Tldraw
 				store={store}
 				overrides={uiOverrides}
+				components={components}
 				onMount={(editor) => {
+					editor.updateInstanceState({ isGridMode: true })
 					editorRef.current = editor
 					editor.user.updateUserPreferences({ areKeyboardShortcutsEnabled: true })
 					editor.setCurrentTool('draw')
