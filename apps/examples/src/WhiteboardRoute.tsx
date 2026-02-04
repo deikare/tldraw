@@ -3,7 +3,6 @@ import { throttle } from 'lodash'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
-	approximately,
 	createTLStore,
 	DefaultSpinner,
 	DefaultStylePanel,
@@ -77,14 +76,12 @@ const components: TLComponents = {
 				const pageY = startPageY + row * size2
 				// convert the page-space Y offset into our canvas' coordinate space
 				const canvasY = (pageY + camera.y) * camera.z * devicePixelRatio
-				const isMajorLine = approximately(pageY % (size2 * 10), 0)
 				drawLine(ctx, 0, canvasY, canvasW, canvasY, 1)
 			}
 			for (let col = 0; col <= numCols; col++) {
 				const pageX = startPageX + col * size2
 				// convert the page-space X offset into our canvas' coordinate space
 				const canvasX = (pageX + camera.x) * camera.z * devicePixelRatio
-				const isMajorLine = approximately(pageX % (size2 * 10), 0)
 				drawLine(ctx, canvasX, 0, canvasX, canvasH, 1)
 			}
 		}, [screenBounds, camera, size2, devicePixelRatio, editor, isDarkMode])
@@ -116,13 +113,167 @@ function LeftStyleSidebar({ open }: { open: boolean }) {
 	)
 }
 
-export function useLeftStylePanelState() {
-	return useState(false)
-}
+const makeUiOverrides = (
+	setStylePanelOpen: React.Dispatch<React.SetStateAction<boolean>>
+): TLUiOverrides => ({
+	actions(
+		editor: Editor,
+		actions: TLUiActionsContextType,
+		helpers: TLUiOverrideHelpers
+	): TLUiActionsContextType {
+		delete actions['toggle-style-panel']
+
+		actions.nextPage = {
+			id: 'next-page',
+			label: 'Next page',
+			kbd: '.',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				const pages = editor.getPages()
+				const current = editor.getCurrentPageId()
+				const index = pages.findIndex((p) => p.id === current)
+				const next = pages[index + 1]
+				if (next) {
+					editor.setCurrentPage(next)
+				} else editor.createPage({ name: `Strona ${index + 2}` })
+			},
+		}
+
+		actions.prevPage = {
+			id: 'prev-page',
+			label: 'Prev page',
+			kbd: ',',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				const pages = editor.getPages()
+				const current = editor.getCurrentPageId()
+				const index = pages.findIndex((p) => p.id === current)
+				const next = pages[index - 1]
+				if (next) {
+					editor.setCurrentPage(next)
+				}
+			},
+		}
+
+		actions.undo = {
+			...actions.undo,
+			kbd: 'ctrl+z,z',
+		}
+
+		actions.pickDraw = {
+			id: 'pick-draw',
+			label: 'Pick draw',
+			kbd: '1',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				editor.setCurrentTool('draw')
+			},
+		}
+
+		actions.toggleLeftStylePanel = {
+			id: 'toggle-left-style-panel',
+			label: 'Toggle style panel',
+			kbd: '2',
+			onSelect() {
+				setStylePanelOpen((o) => !o)
+			},
+		}
+
+		actions.hideLeftStylePanel = {
+			id: 'hide-left-style-panel',
+			label: 'hide style panel',
+			kbd: 'esc',
+			onSelect() {
+				setStylePanelOpen((_) => false)
+			},
+		}
+
+		actions.pickEraser = {
+			id: 'pick-eraser',
+			label: 'Pick eraser',
+			kbd: '3',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				editor.setCurrentTool('eraser')
+			},
+		}
+
+		actions.pickSelect = {
+			id: 'pick-select',
+			label: 'Pick select',
+			kbd: '4',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				editor.setCurrentTool('select')
+			},
+		}
+
+		actions.pickHex = {
+			id: 'pick-hex',
+			label: 'Pick hex',
+			kbd: '5',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				editor.setCurrentTool('geo')
+				editor.updateInstanceState({
+					stylesForNextShape: {
+						'tldraw:geo': 'hexagon',
+					},
+				})
+			},
+		}
+
+		actions.pickEllipsis = {
+			id: 'pick-ellipsis',
+			label: 'Pick ellipsis',
+			kbd: '6',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				editor.setCurrentTool('geo')
+				editor.updateInstanceState({
+					stylesForNextShape: {
+						'tldraw:geo': 'ellipse',
+					},
+				})
+			},
+		}
+
+		actions.pickTriangle = {
+			id: 'pick-triangle',
+			label: 'Pick triangle',
+			kbd: '7',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				editor.setCurrentTool('geo')
+				editor.updateInstanceState({
+					stylesForNextShape: {
+						'tldraw:geo': 'triangle',
+					},
+				})
+			},
+		}
+
+		actions.pickHighlight = {
+			id: 'pick-highlight',
+			label: 'Pick highlight',
+			kbd: '8',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				editor.setCurrentTool('highlight')
+			},
+		}
+
+		actions['toggle-focus-mode'] = {
+			...actions['toggle-focus-mode'],
+			kbd: actions['toggle-focus-mode'].kbd + ',`',
+			onSelect(source: TLUiEventSource): Promise<void> | void {
+				const currentFocused = editor.getInstanceState().isFocusMode
+				editor.updateInstanceState({ isFocusMode: !currentFocused })
+				if (!currentFocused) setStylePanelOpen((_) => currentFocused)
+			},
+		}
+
+		return actions
+	},
+})
 
 export default function WhiteboardRoute() {
 	const { id } = useParams<{ id: string }>()
+	const [stylePanelOpen, setStylePanelOpen] = useState(false)
+
 	const store = useMemo(() => createTLStore(), [])
+	const uiOverrides = useMemo(() => makeUiOverrides(setStylePanelOpen), [])
 	const editorRef = useRef<Editor | null>(null)
 	const snapshotRef = useRef<any>(null)
 
@@ -226,135 +377,13 @@ export default function WhiteboardRoute() {
 	/* Editor                                              */
 	/* -------------------------------------------------- */
 
-	const uiOverrides: TLUiOverrides = {
-		actions(
-			editor: Editor,
-			actions: TLUiActionsContextType,
-			helpers: TLUiOverrideHelpers
-		): TLUiActionsContextType {
-			actions.nextPage = {
-				id: 'next-page',
-				label: 'Next page',
-				kbd: '.',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					const pages = editor.getPages()
-					const current = editor.getCurrentPageId()
-					const index = pages.findIndex((p) => p.id === current)
-					const next = pages[index + 1]
-					if (next) {
-						editor.setCurrentPage(next)
-					} else editor.createPage({ name: `Strona ${index + 2}` })
-				},
-			}
-
-			actions.prevPage = {
-				id: 'prev-page',
-				label: 'Prev page',
-				kbd: ',',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					const pages = editor.getPages()
-					const current = editor.getCurrentPageId()
-					const index = pages.findIndex((p) => p.id === current)
-					const next = pages[index - 1]
-					if (next) {
-						editor.setCurrentPage(next)
-					}
-				},
-			}
-
-			actions.undo = {
-				...actions.undo,
-				kbd: 'ctrl+z,z',
-			}
-
-			actions.pickDraw = {
-				id: 'pick-draw',
-				label: 'Pick draw',
-				kbd: '1',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					editor.setCurrentTool('draw')
-				},
-			}
-
-			actions.pickText = {
-				id: 'pick-text',
-				label: 'Pick text',
-				kbd: '2',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					editor.setCurrentTool('text')
-				},
-			}
-
-			actions.pickEraser = {
-				id: 'pick-eraser',
-				label: 'Pick eraser',
-				kbd: '3',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					editor.setCurrentTool('eraser')
-				},
-			}
-
-			actions.pickSelect = {
-				id: 'pick-select',
-				label: 'Pick select',
-				kbd: '4',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					editor.setCurrentTool('select')
-				},
-			}
-
-			actions.pickHex = {
-				id: 'pick-hex',
-				label: 'Pick hex',
-				kbd: '5',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					editor.setCurrentTool('geo')
-					editor.updateInstanceState({
-						stylesForNextShape: {
-							'tldraw:geo': 'hexagon',
-						},
-					})
-				},
-			}
-
-			actions.pickEllipsis = {
-				id: 'pick-ellipsis',
-				label: 'Pick ellipsis',
-				kbd: '6',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					editor.setCurrentTool('geo')
-					editor.updateInstanceState({
-						stylesForNextShape: {
-							'tldraw:geo': 'ellipse',
-						},
-					})
-				},
-			}
-
-			actions.pickHighlight = {
-				id: 'pick-highlight',
-				label: 'Pick highlight',
-				kbd: '8',
-				onSelect(source: TLUiEventSource): Promise<void> | void {
-					editor.setCurrentTool('highlight')
-				},
-			}
-
-			actions['toggle-focus-mode'] = {
-				...actions['toggle-focus-mode'],
-				kbd: actions['toggle-focus-mode'].kbd + ',`',
-			}
-
-			return actions
-		},
-	}
-
 	return (
-		<div className="tldraw__editor">
+		<div className="tldraw__editor" style={{ position: 'fixed', inset: 0 }}>
 			<Tldraw
 				store={store}
 				overrides={uiOverrides}
 				components={components}
+				options={{ enableToolbarKeyboardShortcuts: false }}
 				onMount={(editor) => {
 					editor.updateInstanceState({ isGridMode: true })
 					editorRef.current = editor
@@ -422,7 +451,9 @@ export default function WhiteboardRoute() {
 						container.removeEventListener('pointerup', handler, true)
 					}
 				}}
-			/>
+			>
+				<LeftStyleSidebar open={stylePanelOpen} />
+			</Tldraw>
 		</div>
 	)
 }
